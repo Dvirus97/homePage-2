@@ -158,8 +158,7 @@
         ),
       ];
 
-      save(links);
-      links = load();
+      links = load() ?? links;
 
       dialogOpen.onclick = () => {
         dialogBox.showModal();
@@ -231,7 +230,7 @@
       function load() {
         const storageName = "HomePageLinks";
         const json = localStorage.getItem(storageName);
-        return JSON.parse(json) ?? [];
+        return JSON.parse(json);
       }
       function remove(name) {
         const data = load();
