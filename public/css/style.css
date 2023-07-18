@@ -1,0 +1,81 @@
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  width: min(30rem, 100% - 4rem);
+  margin-inline: auto;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 5ch;
+  gap: 1rem;
+  min-width: 30ch;
+  align-items: end;
+}
+
+label {
+  display: grid;
+  gap: 0.5em;
+}
+
+a,
+.link-color {
+  color: #b775f0;
+  text-decoration: none;
+}
+
+.whatsapp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.whatsapp input {
+  width: 15ch;
+}
+
+img {
+  width: 20px;
+  aspect-ratio: 1;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.link-list {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1em;
+}
+.link-list .card {
+  box-shadow: 0 0 5px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.link-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  transition: scale 0.2s;
+}
+.link-list a:hover {
+  scale: 1.2;
+}
+.link-list .deleteBtn {
+  position: absolute;
+  right: 0;
+  background-color: rgba(119, 119, 119, 0.3333333333);
+  border-radius: 5px;
+  font-size: 0.7em;
+}
+
+dialog {
+  box-shadow: 0 0 100px 100em rgba(0, 0, 0, 0.3333333333);
+}

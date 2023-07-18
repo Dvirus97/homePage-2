@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./public/css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Home Page</h1>
+      <form class="google" action="http://google.com/search" target="_blank">
+        <label>
+          Google
+          <input type="text" name="q" />
+        </label>
+        <button>Go</button>
+      </form>
+      <br />
+      <div class="whatsapp link-color">
+        <div class="link">
+          <a target="_blank" href="https://web.whatsapp.com/"> WhatsApp</a>
+        </div>
+        <select name="per-phone">
+          <option value="972" selected>972</option>
+          <option value="1">1</option>
+        </select>
+        <input
+          type="number"
+          inputmode="numeric"
+          name="phone"
+          placeholder="phone number"
+        />
+        <button class="whatsappBtn">Go</button>
+      </div>
+
+      <h2>Favorites</h2>
+      <div class="dialog">
+        <button class="dialog-openBtn">Add New</button>
+        <dialog class="dialog-box">
+          <h1>Add new Favorite</h1>
+          <div class="addForm">
+            <label>
+              Name
+              <input type="text" name="name" />
+            </label>
+            <label>
+              Url
+              <input type="text" name="url" />
+            </label>
+            <label>
+              image
+              <input type="text" name="image" />
+            </label>
+          </div>
+          <button class="dialog-closeBtn">Add New</button>
+        </dialog>
+      </div>
+      <div class="link-list">
+        <!-- <li></li>
+
+        <li>
+          <a target="_blank" href="https://www.instagram.com/dvircoh97/"
+            ><img
+              src="https://cdn-0.smartandroid.fr/wp-content/uploads/2020/10/probleme-story-instagram6.png?ezimgfmt=rs:256x256/rscb8/ng:webp/ngcb8"
+              alt=""
+            />
+            | Instagram</a
+          >
+        </li>
+        <li>
+          <a target="_blank" href="https://www.facebook.com/Dvircoh/"
+            ><img
+              src="https://www.facebook.com/images/fb_icon_325x325.png"
+              alt=""
+            />
+            | Facebook</a
+          >
+        </li>
+        <li>
+          <a target="_blank" href="https://www.netflix.com/"
+            ><img
+              src="https://cdn.substack.com/image/fetch/w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F81867b74-0eed-4c5e-b84a-25fd06f757e7_1000x1000.png"
+              alt=""
+            />
+            | Netflix</a
+          >
+        </li>
+        <li>
+          <a target="_blank" href="https://www.youtube.com/"
+            ><img
+              src="https://iconarchive.com/download/i98467/dakirby309/simply-styled/YouTube.ico"
+              alt=""
+            />
+            | Youtube</a
+          >
+        </li>
+        <li>
+          <a target="_blank" href="https://outlook.office.com/mail/"
+            ><img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/800px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png"
+              alt=""
+            />
+            | Outlook</a
+          >
+        </li> -->
+      </div>
+    </main>
+    <!-- <script src="index.js" type="module"></script> -->
+    <script>
+      const dialog = document.querySelector(".dialog");
+      const dialogOpen = dialog.querySelector(".dialog-openBtn");
+      const dialogClose = dialog.querySelector(".dialog-closeBtn");
+      const dialogBox = dialog.querySelector(".dialog-box");
+
+      const newName = dialog.querySelector("[name=name]");
+      const newHref = dialog.querySelector("[name=url]");
+      const newImage = dialog.querySelector("[name=image]");
+
+      class Link {
+        constructor(name = "", href = "", image = "") {
+          this.name = name;
+          this.href = href;
+          this.image = image;
+        }
+      }
+
+      let links = [
+        new Link(
+          "WhatsApp",
+          "https://web.whatsapp.com/",
+          "./public/images/WhatsApp.svg.webp"
+        ),
+        new Link(
+          "Instagram",
+          "https://www.instagram.com/dvircoh97/",
+          "./public/images/instagram.webp"
+        ),
+        new Link(
+          "Facebook",
+          "https://www.facebook.com/Dvircoh/",
+          "./public/images/facebook.png"
+        ),
+        new Link(
+          "Netflix",
+          "https://www.netflix.com/",
+          "./public/images/netflix.png"
+        ),
+        new Link(
+          "Youtube",
+          "https://www.youtube.com/",
+          "./public/images/youtube.ico"
+        ),
+        new Link(
+          "Outlook",
+          "https://outlook.office.com/mail/",
+          "./public/images/outlook.png"
+        ),
+      ];
+
+      //links = load();
+
+      dialogOpen.onclick = () => {
+        dialogBox.showModal();
+      };
+      dialogClose.onclick = () => {
+        const link = createLink({
+          name: newName.value,
+          href: newHref.value,
+          image: newImage.value,
+        });
+        console.log(link);
+
+        newName.value = newHref.value = newImage.value = "";
+        dialogBox.close();
+      };
+
+      const linkList = document.querySelector(".link-list");
+
+      render();
+
+      function render() {
+        linkList.innerHTML = "";
+        console.log(links);
+        links.forEach((link) => {
+          linkList.append(createLinkElement(link));
+        });
+      }
+
+      function createLink({ name = "", href = "", image = "" } = {}) {
+        var link = new Link(name, href, image);
+        links.push(link);
+        save(links);
+        render();
+        return link;
+      }
+
+      function removeLink(name) {
+        remove(name);
+        links = links.filter((l) => l.name !== name);
+        render();
+      }
+
+      function createLinkElement(link = new Link()) {
+        const div = document.createElement("div");
+        div.classList.add("card");
+        const img = document.createElement("img");
+        img.src = link.image;
+        const a = document.createElement("a");
+        a.classList.add("link");
+        a.setHTML(
+          `<img class="link-image" src='${link.image}'/><div class="link-text">${link.name}</div>`
+        );
+        a.href = link.href;
+        a.target = "_blank";
+        const deleteBtn = document.createElement("button");
+        deleteBtn.setHTML("X");
+        deleteBtn.classList.add("deleteBtn");
+        deleteBtn.onclick = () => removeLink(link.name);
+        div.append(deleteBtn);
+
+        div.append(a);
+        return div;
+      }
+
+      function save(data) {
+        const storageName = "HomePageLinks";
+        localStorage.setItem(storageName, JSON.stringify(data));
+      }
+      function load() {
+        const storageName = "HomePageLinks";
+        const json = localStorage.getItem(storageName);
+        return JSON.parse(json) ?? [];
+      }
+      function remove(name) {
+        const data = load();
+        const links = data.filter((l) => l.name !== name);
+        save(links);
+      }
+
+      const prePhone = document.querySelector("[name='per-phone']");
+      const phone = document.querySelector("[name='phone']");
+      const whatsappBtn = document.querySelector(".whatsappBtn");
+
+      whatsappBtn.onclick = (e) => {
+        e.preventDefault();
+        const full = prePhone.value + phone.value;
+        window.open(`https://api.whatsapp.com/send?phone=${full}`, "_blank");
+      };
+    </script>
+  </body>
+</html>
